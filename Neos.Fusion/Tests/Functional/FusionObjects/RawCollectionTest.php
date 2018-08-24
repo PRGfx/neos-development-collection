@@ -62,4 +62,15 @@ class RawCollectionTest extends AbstractFusionObjectTest
         $view->setFusionPath('rawCollection/iteration');
         $this->assertEquals(['Xelement1-0-1-1--1-','Xelement2-1-2----1','Xelement3-2-3---1-','Xelement4-3-4--1--1'], $view->render());
     }
+
+    /**
+     * @test
+     */
+    public function itemKeyCanBeRendered()
+    {
+        $view = $this->buildView();
+        $view->assign('collection', array('element1', 'element2', 'element3'));
+        $view->setFusionPath('rawCollection/itemKeys');
+        $this->assertEquals(['X0_element1' => 'Xelement1', 'X1_element2' => 'Xelement2', 'X2_element3' => 'Xelement3'], $view->render());
+    }
 }

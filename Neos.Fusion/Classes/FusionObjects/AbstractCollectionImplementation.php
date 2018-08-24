@@ -106,7 +106,13 @@ abstract class AbstractCollectionImplementation extends AbstractFusionObject
             }
 
             $this->runtime->pushContextArray($context);
-            $result[] =  $this->runtime->render($this->path . '/itemRenderer');
+            $renderedItem = $this->runtime->render($this->path . '/itemRenderer');
+            try {
+                $renderedKey = $this->runtime->render($this->path . '/itemKeyRenderer');
+                $result[$renderedKey] = $renderedItem;
+            } catch (\Exception $e) {
+                $result[] = $renderedItem;
+            }
             $this->runtime->popContext();
             $this->numberOfRenderedNodes++;
         }
